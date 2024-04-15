@@ -29,22 +29,22 @@
 // Tudomasul veszem, hogy a forrasmegjeloles kotelmenek megsertese eseten a hazifeladatra adhato pontokat
 // negativ elojellel szamoljak el es ezzel parhuzamosan eljaras is indul velem szemben.
 //
-// A kód írásához az alábbi forrásokat használtam fel:
-//					- Moodle: elõadás diák az openGL metódusokkhoz, fragment és vertex shaderekhez, Camera felépítésében
-//					- Teams: nem hivatalos grafika konzi, ahol az elméleti alapok lettek átismételve,
-//							 a program (nem konkrét) felépítésében adtak tanácsokat, segítettek pontosítani a feladatot,
-//							 levezetni a fontosabb képleteket. 
-//							 Ezt felhasználtam a Star osztály pontjainak koordinátáit kiszámoló fgvben (getPoints),
-//							 a Poincaré textúrát képezõ ,,saktábla" meghatározásában (getCheckerBoard), és a Camera transzformációinak megírásában
+// A kÃ³d Ã­rÃ¡sÃ¡hoz az alÃ¡bbi forrÃ¡sokat hasznÃ¡ltam fel:
+//					- Moodle: elÃµadÃ¡s diÃ¡k az openGL metÃ³dusokkhoz, fragment Ã©s vertex shaderekhez, Camera felÃ©pÃ­tÃ©sÃ©ben
+//					- Teams: nem hivatalos grafika konzi, ahol az elmÃ©leti alapok lettek Ã¡tismÃ©telve,
+//							 a program (nem konkrÃ©t) felÃ©pÃ­tÃ©sÃ©ben adtak tanÃ¡csokat, segÃ­tettek pontosÃ­tani a feladatot,
+//							 levezetni a fontosabb kÃ©pleteket. 
+//							 Ezt felhasznÃ¡ltam a Star osztÃ¡ly pontjainak koordinÃ¡tÃ¡it kiszÃ¡molÃ³ fgvben (getPoints),
+//							 a PoincarÃ© textÃºrÃ¡t kÃ©pezÃµ ,,saktÃ¡bla" meghatÃ¡rozÃ¡sÃ¡ban (getCheckerBoard), Ã©s a Camera transzformÃ¡ciÃ³inak megÃ­rÃ¡sÃ¡ban
 //=============================================================================================
 #include "framework.h"
 
 /*
- * pontokon kívül a textúra koordinátákat is vinni a pipelineon
- * pixelárnyaló az interpolált textúra koordinátákkal megcímzett texellel színezze a pixelt
+ * pontokon kÃ­vÃ¼l a textÃºra koordinÃ¡tÃ¡kat is vinni a pipelineon
+ * pixelÃ¡rnyalÃ³ az interpolÃ¡lt textÃºra koordinÃ¡tÃ¡kkal megcÃ­mzett texellel szÃ­nezze a pixelt
  */
 // vertex shader in GLSL
-// "2D textúrázás" elõadás diáiból
+// "2D textÃºrÃ¡zÃ¡s" elÃµadÃ¡s diÃ¡ibÃ³l
 const char* const vertexSource = R"(
 	#version 330
 	precision highp float;
@@ -59,7 +59,6 @@ const char* const vertexSource = R"(
 )";
 
 // fragment shader in GLSL
-// "2D textúrázás" elõadás diáiból
 const char* const fragmentSource = R"(
 	#version 330
 	precision highp float;
@@ -97,9 +96,9 @@ struct Camera {
 class PoincareTexture {
 public:
 	/*
-	 * RenderToTexture : aktuális felbontástól függõen
-	 * számít textúra képet + feltölt GPU-ba
-	 * A textúra kezdeti felbontása 300x300-as és GL_LINEAR a szûrési mód
+	 * RenderToTexture : aktuÃ¡lis felbontÃ¡stÃ³l fÃ¼ggÃµen
+	 * szÃ¡mÃ­t textÃºra kÃ©pet + feltÃ¶lt GPU-ba
+	 * A textÃºra kezdeti felbontÃ¡sa 300x300-as Ã©s GL_LINEAR a szÃ»rÃ©si mÃ³d
 	 */
 	GLuint textureId;
 	GLenum filterMode;
@@ -139,7 +138,7 @@ public:
 		for (int i = 0; i < 360; i += 40) {
 			vec2 v0(cosf((i * ((float)M_PI / 180.0f))), sinf((i * ((float)M_PI / 180.0f))));
 
-			// feladatleírásból pontok koordinátái
+			// feladatleÃ­rÃ¡sbÃ³l pontok koordinÃ¡tÃ¡i
 			points.clear();
 			for (float f = 0.5f; f < 6.5f; f++) {
 				vec3 hp = vec3(0, 0, 1) * coshf(f) + (vec3(v0.x,v0.y,0)) * sinhf(f);
@@ -210,9 +209,9 @@ public:
 };
 
 	/*
-	 * csillag hegyesítés
-	 * keringés, forgás
-	 * geometria textúrázás
+	 * csillag hegyesÃ­tÃ©s
+	 * keringÃ©s, forgÃ¡s
+	 * geometria textÃºrÃ¡zÃ¡s
 	 */
 class Star {
 public:
@@ -257,7 +256,7 @@ public:
 				}
 			}
 		}
-		// feladatleírásból
+		// feladatleÃ­rÃ¡sbÃ³l
 		const std::vector<vec2> texelPoints = { vec2(0.5f, 0.5f) , vec2(0.0f, 0.0f) , vec2(0.0f, 0.5f) , vec2(0, 1), vec2(0.5f, 1.0f), vec2(1.0f, 1.0f), vec2(1.0f, 0.5f),  vec2(1, 0) , vec2(0.5f, 0.0f) , vec2(0.0f, 0.0f) };
 		std::vector<vec3> vtxPoints = { vec3(centerX, centerY, 1) , cp[0] , mp[0], cp[1], mp[2],  cp[3] , mp[3] ,cp[2] , mp[1] , cp[0] };
 		for (int i = 0; i < 10; i++) {
