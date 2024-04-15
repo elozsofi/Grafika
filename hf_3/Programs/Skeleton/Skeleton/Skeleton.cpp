@@ -59,6 +59,7 @@ const char* const vertexSource = R"(
 )";
 
 // fragment shader in GLSL
+// "2D textúrázás" elõadás diáiból
 const char* const fragmentSource = R"(
 	#version 330
 	precision highp float;
